@@ -51,21 +51,13 @@ public:
 /* The below method sorts the stack s 
 you are required to complete the below method */
 void insert(stack<int>& s,int x){
-    //agar stack emprt hai toh insert
-    if(s.empty()){
+    if(s.empty() || s.top() < x){
         s.push(x);
         return;
     }
-    //agar current top chota hai toh x daal do
-    if(s.top() < x){
-        s.push(x);
-        return;
-    }
-    //agar bada hai toh pop krdo save krke
     int top = s.top();
     s.pop();
     insert(s,x);
-    //wapas daal do
     s.push(top);
 }
 void SortedStack :: sort()
