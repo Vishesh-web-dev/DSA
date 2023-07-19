@@ -30,3 +30,47 @@ public:
 };
 
 //Optimized Using Stack(monotonic Stack)
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        //next smaller and prev smaller index using stack
+        int n = heights.size();
+        vector<int> next(n,-1);
+        vector<int> prev(n,-1);
+        stack<int> st;
+        //use stack and store its index in the stack to track correct index
+        for(int i = 0 ; i < n ; i++){
+            if(st.empty()){
+                st.push(i);
+                continue;
+            }
+            while((!st.empty()) && heights[st.top()] > heights[i]){
+                next[st.top()] = i;
+                st.pop();
+            }
+            st.push(i);
+        }
+        stack<int> st2;
+        for(int i = n-1 ; i >= 0 ; i--){
+            if(st2.empty()){
+                st2.push(i);
+                continue;
+            }
+            while((!st2.empty()) && heights[st2.top()] > heights[i]){
+                prev[st2.top()] = i;
+                st2.pop();
+            }
+            st2.push(i);
+        }
+        int area;
+        int maxArea = INT_MIN;
+        for(int i = 0 ; i < n ; i++){
+            if(next[i] == -1){
+                next[i] = n;
+            }
+            area = heights[i]*(next[i] - prev[i]-1);
+            maxArea = max(area,maxArea);
+        }
+        return maxArea;
+    }   
+};
