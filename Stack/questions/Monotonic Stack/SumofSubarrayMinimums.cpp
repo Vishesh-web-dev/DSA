@@ -16,10 +16,6 @@ public:
         }
         stack<int> s;
         for(int i = 0; i < n ; i++){
-            if(s.empty()){
-                s.push(i);
-                continue;
-            }
             while((!s.empty()) && arr[s.top()] >= arr[i]){
                 next[s.top()] =  i - s.top() - 1;
                 s.pop();
@@ -28,10 +24,6 @@ public:
         }    
         stack<int> s2;
         for(int i = n-1; i >= 0 ; i--){
-            if(s2.empty()){
-                s2.push(i);
-                continue;
-            }
             while((!s2.empty()) && arr[s2.top()] > arr[i]){
                 prev[s2.top()] =   s2.top() - i - 1;
                 s2.pop();
