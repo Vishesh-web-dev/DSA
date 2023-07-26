@@ -74,3 +74,42 @@ public:
         return maxArea;
     }   
 };
+
+
+
+
+/*g1 and g1 method*/
+     int largestRectangleArea(vector<int>& heights) {
+        //next smaller and prev smaller index using stack
+        int n = heights.size();
+        vector<int> next(n),prev(n);
+        for(int i = 0 ; i < n ; i++){
+            next[i] = n-i-1; //handle equal wala case as well
+            prev[i] = i; 
+        }
+        stack<int> st,st2;
+        
+        for(int i = 0 ; i < n ; i++){
+            while((!st.empty()) && heights[st.top()] > heights[i]){
+                next[st.top()] = i- st.top() - 1; //g1
+                st.pop();
+            }
+            st.push(i);
+        }
+        
+        for(int i = n-1 ; i >= 0 ; i--){
+             while((!st2.empty()) && heights[st2.top()] > heights[i]){
+                prev[st2.top()] = st2.top() - i -1; //g2
+                st2.pop();
+            }
+            st2.push(i);
+        }
+        int maxArea = INT_MIN,area;
+        for(int i = 0 ; i < n ; i++){
+            area = heights[i]*(prev[i] + next[i] + 1);
+            maxArea = max(area,maxArea);
+        }
+
+        return maxArea;
+    }   
+};
