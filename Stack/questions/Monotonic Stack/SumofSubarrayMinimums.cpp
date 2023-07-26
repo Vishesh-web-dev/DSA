@@ -39,9 +39,16 @@ public:
             s2.push(i);
         }    
 
+        /* this or
         unsigned long long ans = 0;
         for(int i = 0 ; i < n ; i++){
             ans = (ans%mod + ((arr[i]%mod*(next[i]+1)%mod*(prev[i]+1)%mod)%mod)%mod)%mod;
+        }
+        */
+        long long ans = 0;
+        for(int i = 0 ; i < n ; i++){
+            ans += ((arr[i])*(next[i]+1)*(prev[i]+1));
+            ans %= mod;
         }
         return ans;
     }
