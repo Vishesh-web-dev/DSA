@@ -96,6 +96,7 @@ int main() {
                     spf[mul*i] = i;
                 }
                 mul++;
+                
             }
         }
     }
