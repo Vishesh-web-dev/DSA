@@ -6,7 +6,16 @@ int gcd(int a ,int b){
     // cout<<a<<" "<<b<<" \n"; //dry run
     return gcd(b,a%b);
 }
-// int gcd2(int a, int b){
+
+//minus approch (a > b)
+//takes more time
+int gcd2(int a ,int b){
+    if(b == a)return a;
+    if(b>a)return a;
+    // cout<<a<<" "<<b<<" \n"; //dry run
+    return gcd(b,a-b);
+}
+// int gcd3(int a, int b){
 //     while(b!=0){
 //         int temp = a;
 //         // int temp2 = b;
