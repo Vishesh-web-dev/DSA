@@ -1,4 +1,3 @@
-// cf b div 2
 #include <bits/stdc++.h>
 using namespace std;
 //macros
@@ -52,52 +51,38 @@ template<class T,class V> void _print(map<T,V> m1){cerr << "\n[ ";for(auto i : m
 template<class T> void _print(vector<vector<T>> v1){cerr << "\n";for(vector<T>&  i : v1){_print(i);cerr <<"\n";}}
 
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    vi a(n),b(n);
+    int n;
+    cin>>n;
+    vector<int> a(n);
     forn(n){cin>>a[i];}
-    forn(n){cin>>b[i];}
+    int x;
+    cin>>x;
+    // find the position of the first 
+    // element that is not less than a given value.
+    //i.e first num if not present then 
+    // first greater then that
 
-    //find first zero and has sum of all the 1's 
-    ll currSum = 0;
-    ll maxSum = INT_MIN;
-    int first = -1,flag = 0;
-    for(int i = 0 ; i < n ;i++){
-        if(b[i]){
-            currSum+=a[i];
-        }
-        if(b[i] == 0 && flag == 0){
-            first = i;
-            flag = 1;
-        }
+    auto it = lower_bound(a.begin(),a.end(),x);
+    if(it == a.end()){
+        cout<<"Not Found\n";
+    }else{
+        int idx = it-a.begin();
+        cout<<"Pos(L) 0 based "<<idx<<endl;
     }
-    maxSum = currSum;
-    debug(first);
 
-    //first window move k times from first zero
-    int kTimes = k;
-    while(first < n && kTimes--){
-        if(b[first] == 0){
-            currSum += a[first];
-        }
-        debug(a[first]);
-        first++;
-    }
-    maxSum = currSum;
-    for(int i = first ; i < n ; i++){
-        if(b[i] == 0){
-            currSum += a[i];
-        }
-        if(b[i-k] == 0){
-            currSum -= a[i-k];
-        }
-        // debug(currSum);
-        // debug(first);
-        // debug(first-k);
-        maxSum = max(maxSum,currSum);
-    }
-    cout<<maxSum<<endl;
-}   
+
+    //Similarly upper bound
+    //  It finds the position of the first element
+    //  in the range that is greater than a given value
+    auto it2 = upper_bound(a.begin(),a.end(),x);
+    int idx2 = it2-a.begin();
+    cout<<"Pos(U) 0 based "<<idx2<<endl;
+
+    //so for upper bound of a number if
+    //you know it is present then
+    int idx3 = (it2 - a.begin()) - 1;
+    debug(idx3);
+}
     
 int main() {
  

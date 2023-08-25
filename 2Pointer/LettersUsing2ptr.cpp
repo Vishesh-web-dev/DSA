@@ -1,4 +1,3 @@
-// cf b div 2
 #include <bits/stdc++.h>
 using namespace std;
 //macros
@@ -52,52 +51,31 @@ template<class T,class V> void _print(map<T,V> m1){cerr << "\n[ ";for(auto i : m
 template<class T> void _print(vector<vector<T>> v1){cerr << "\n";for(vector<T>&  i : v1){_print(i);cerr <<"\n";}}
 
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    vi a(n),b(n);
+    int n,m;
+    cin>>n>>m;
+    vll a(n),b(m);
     forn(n){cin>>a[i];}
-    forn(n){cin>>b[i];}
-
-    //find first zero and has sum of all the 1's 
-    ll currSum = 0;
-    ll maxSum = INT_MIN;
-    int first = -1,flag = 0;
-    for(int i = 0 ; i < n ;i++){
-        if(b[i]){
-            currSum+=a[i];
-        }
-        if(b[i] == 0 && flag == 0){
-            first = i;
-            flag = 1;
+    forn(m){cin>>b[i];}
+    //apply 2ptr on prefix array and b since both are sorted as well
+    for(int i = 1 ; i < n ; i++){
+        a[i] += a[i-1];
+    }
+    int i = 0, j = 0;
+    while(i < n && j < m){
+        ll room;
+        if(a[i] >= b[j]){
+            if(i == 0){
+                room = b[j];
+            }else{
+                room = b[j] - a[i-1];
+            }
+            cout<<i+1<<" "<<room<<endl;
+            j++;
+        }else{
+            i++;
         }
     }
-    maxSum = currSum;
-    debug(first);
-
-    //first window move k times from first zero
-    int kTimes = k;
-    while(first < n && kTimes--){
-        if(b[first] == 0){
-            currSum += a[first];
-        }
-        debug(a[first]);
-        first++;
-    }
-    maxSum = currSum;
-    for(int i = first ; i < n ; i++){
-        if(b[i] == 0){
-            currSum += a[i];
-        }
-        if(b[i-k] == 0){
-            currSum -= a[i-k];
-        }
-        // debug(currSum);
-        // debug(first);
-        // debug(first-k);
-        maxSum = max(maxSum,currSum);
-    }
-    cout<<maxSum<<endl;
-}   
+}
     
 int main() {
  
