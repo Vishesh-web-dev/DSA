@@ -58,19 +58,27 @@ void solve() {
     forn(n){cin>>a[i];}
 
     ll sum = 0;
-    int size = INT_MAX;
+    ll size = INT_MAX;
     int i = 0 , j = 0;
-    while(j < n){
+    ll cnt = 0;
+    int start = -1;
+    while(i < n){
         if(sum < p){
-            sum += a[j++];
+            sum += a[j%n];
+            j++;
+            cnt++;
         }else{
             sum -=a[i++];
+            cnt--;
         }
         if(sum >= p){
-            size = min(size,j-i);
+            if(size > cnt){
+                size = cnt;
+                start = i;
+            }
         }
     }
-    cout<<size<<endl;
+    cout<<start+1<<" "<<size<<endl;
 }
     
 int main() {
