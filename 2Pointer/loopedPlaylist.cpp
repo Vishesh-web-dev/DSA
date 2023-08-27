@@ -51,39 +51,26 @@ template<class T,class V> void _print(map<T,V> m1){cerr << "\n[ ";for(auto i : m
 template<class T> void _print(vector<vector<T>> v1){cerr << "\n";for(vector<T>&  i : v1){_print(i);cerr <<"\n";}}
 
 void solve() {
-    // total - number of pairs less then l and number of pairs more then r using 2 ptr 
-    int n,l,r;
-    cin>>n>>l>>r;
-    vll a(n);
+    int n;
+    ll p;
+    cin>>n>>p;
+    vi a(n);
     forn(n){cin>>a[i];}
-    ll total = (1ll*n*(n-1))/2;
-    //all the pairs smaller then l first
-    srt(a);
-    ll cntl = 0;
-    int s = 0,e = n-1;
-    while(s<e){
-        if(a[s]+a[e] < l){
-            cntl+=e-s;
-            s++;
-        }else{
-            e--;
-        }
-    }
-    debug(cntl);
-    //all the pairs bigger then r
-    s = 0,e = n-1;
-    ll cntr = 0;
-    while(s < e){
-        if(a[s] + a[e] > r){
-            cntr += e-s;
-            e--;
-        }else{
-            s++;
-        }
-    }
 
-    ll ans = total - cntr - cntl;
-    cout<<ans<<endl;
+    ll sum = 0;
+    int size = INT_MAX;
+    int i = 0 , j = 0;
+    while(j < n){
+        if(sum < p){
+            sum += a[j++];
+        }else{
+            sum -=a[i++];
+        }
+        if(sum >= p){
+            size = min(size,j-i);
+        }
+    }
+    cout<<size<<endl;
 }
     
 int main() {
@@ -97,11 +84,6 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while (t--)
-    {
-        solve();
-    }
+    solve();
     return 0;
 }

@@ -57,7 +57,31 @@ void solve() {
     forn(n){cin>>a[i];}
     string s;
     cin>>s;
-     
+    //observation
+    //if fixed value has smaller 
+    //value then it in front then
+    //it is impossible 
+    
+    //check if max value can be placed or not
+    
+
+
+
+
+    //start from last idx and if found any idx which is lesser
+    //then curr min and has correspondence 0 then no
+    int currmin = a[n-1];
+    for(int i = n-2 ; i >= 0 ; i--){
+        debug(currmin);
+        if(a[i] > currmin && s[i] == '0'){
+                cout<<"NO\n";
+                return;
+        }else if(a[i] < currmin){
+            currmin = a[i];
+        }
+    }
+    
+    cout<<"YES\n";
 }
     
 int main() {
